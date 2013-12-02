@@ -1,0 +1,31 @@
+{
+  "name": "bic_calendar_full",
+  "title": "Bic Calendar Full",
+  "description": "A jQuery and Twitter Bootstrap 3 full calendar with the option of select data ranges, mark events and others",
+  "keywords": [
+    "ui",
+    "calendar",
+    "events",
+    "agenda",
+    "html5",
+    "mobile"
+  ],
+  "version": "1.0.0",
+  "author": {
+    "name": "bichotll",
+    "url": "http://bic.cat"
+  },
+  "licenses": [
+    {
+      "type": "Apache",
+      "url": "https://github.com/bichotll/bic_calendar_full/blob/master/LICENSE"
+    }
+  ],
+  "bugs": "https://github.com/bichotll/bic_calendar_full/issues",
+  "homepage": "http://bichotll.github.io/bic_calendar_full",
+  "download": "https://github.com/bichotll/bic_calendar_full",
+  "dependencies": {
+    "jquery": ">=1.7.2",
+    "twitter bootstrap": ">=3"
+  }
+}

@@ -16,82 +16,116 @@ Dependencias
 Options
 -------
 
-- dias (array)
-	- default: ["l", "m", "x", "j", "v", "s", "d"]
+- popoverOptions (popover Twitter Bootstrap object)
 
-- nombresMes (array)
-	- default: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"]
+- tooltipOptions (tooltip Twitter Bootstrap object)
 
-- show_days (boolean)
-	- default: true
+- dayNames (array)
+    - default: ["l", "m", "x", "j", "v", "s", "d"]
 
-- popover_options (`popover Twitter Bootstrap<http://twitter.github.com/bootstrap/javascript.html#popovers>`_ object)
+- monthNames (array)
+    - default: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"]
 
-- tooltip_options (`tooltip Twitter Bootstrap<http://twitter.github.com/bootstrap/javascript.html#tooltips>`_ object)
+- showDays (boolean)
+    - default: true
 
-- req_ajax (object)
-	- req_ajax.type (string) {'get', 'post'}
-	- req_ajax.url (string)
+- reqAjax (json array of event array)
+    - reqAjax.type (string) {'get', 'post'}
+    - reqAjax.url (string)
 
 - events (array of event array)
-	- req_ajax.type (string) {'get', 'post'}
-	- req_ajax.url (string)
+    - ex:
+```
+    var events = [
+        {
+            date: "28/10/2013",
+            title: 'SPORT & WELLNESS',
+            link: '',
+            color: '',
+            content: '<img src="http://gettingcontacts.com/upload/jornadas/sport-wellness_portada.png" ><br>06-11-2013 - 09:00 <br> Tecnocampus Mataró Auditori',
+            class: '',
+        }
+    ];
+```
 
-- Event (array)
-	- 0 (string): date
-	ex: "17/8/1989"
-	- 1 (string): title
-	ex: "Event Barberà"
-	- 2 (string): link
-	ex: "http://google.es"
-	- 3 (string): color
-	ex: "#333"
-	- 4 (string): html popover
-	ex: "Text for the content of popover...description of event...image..."
+
+Use example for the calendar
+----------------------------
+
+```
+$(document).ready(function() {
+
+    var monthNames = ["Gener", "Febrer", "Març", "Abril", "Maig", "Juny", "Juliol", "Agost", "Setembre", "Octubre", "Novembre", "Dicembre"];
+
+    var dayNames = ["L", "M", "M", "J", "V", "S", "D"];
+
+    var events = [
+        {
+            date: "28/10/2013",
+            title: 'SPORT & WELLNESS',
+            link: '',
+            color: '',
+            content: '<img src="http://gettingcontacts.com/upload/jornadas/sport-wellness_portada.png" ><br>06-11-2013 - 09:00 <br> Tecnocampus Mataró Auditori',
+            class: '',
+        }
+    ];
+
+    $('#calendari_lateral1').bic_calendar({
+        //list of events in array
+        events: events,
+        //enable select
+        enableSelect: true,
+        //enable multi-select
+        multiSelect: true,
+        //set day names
+        dayNames: dayNames,
+        //set month names
+        monthNames: monthNames,
+        //show dayNames
+        showDays: true,
+        //set ajax call
+        reqAjax: {
+            type: 'get',
+            url: 'http://bic.cat/bic_calendar/index.php'
+        }
+        //set popover options
+        //popoverOptions: {}
+        //set tooltip options
+        //tooltipOptions: {}
+    });
+});
+```
 
 
-Use example
------------
+Use example for the calendar events
+-----------------------------------
+```
+$(document).ready(function() {
+    document.addEventListener('bicCalendarSelect', function(e) {
+        alert('Hi dude! You selected from ' + e.detail.dateFirst + 'to' + e.detail.dateLast + '. Do whatever you want with these dates.');
 
-Note that each event of the exemple have a diferent behavior
+        //maybe you would like to send these data by ajax...
+        //$.ajax...
 
-- The blue event have a hover popover
-["27/$mes/$ano", 'Getting Contacts Barcelona', 'http://gettingcontacts.com/events/view/barcelona', 'red']
-- The green event have a click popover
-["7/$mes/$ano", '2º Getting Contacts Alaquás', 'http://gettingcontacts.com/events/view/alaquas', 'blue', 'contingut popover']
-- The red event have a hover tooltip ["17/$mes/$ano", '4º Getting Contacts Barberà', '#', '#3B4', 'contingut popover']
+        //or asign to a form...
+        //$('input').val(...
+    });
+});
+```
 
-	$(document).ready( function(){
 
-		mesos = ["Gener", "Febrer", "Març", "Abril", "Maig", "Juny", "Juliol", "Agost", "Setembre", "Octubre", "Novembre", "Dicembre"];
+TODO
+----
+    - Clear documentation
+    - Add all options
 
-		dias = ["L", "M", "M", "J", "V", "S", "D"];
 
-	    $('#calendari_lateral1').bic_calendar({
-	        nombresMes: mesos,
-	        dias: dias,
-	        req_ajax: {
-	        	type: 'get',
-	        	url: 'index.php'
-	        }
-	    });
-	} );
-
-	$mes = $_GET['mes'];
-	$ano = $_GET['ano'];
-
-	$array = array(
-		array("27/$mes/$ano", 'Getting Contacts Barcelona', 'http://gettingcontacts.com/events/view/barcelona'),
-		array("7/$mes/$ano", '2º Getting Contacts Alaquás', 'http://gettingcontacts.com/events/view/alaquas', '#3B4', 'contingut popover'),
-		array("17/$mes/$ano", '4º Getting Contacts Barberà', '#', '#3B4', 'contingut popover')
-	);
-
-	echo json_encode($array);
+More info
+---------
+This is just an improved fork of [http://bic.cat/bic_calendar](http://bic.cat/bic_calendar). 
+For more info you could check it and its branches.
 
 
 Showcase
 --------
-
-[http://gettingcontacts.com](http://gettingcontacts.com)
-
-[http://bic.cat/bic_calendar](http://bic.cat/bic_calendar)
+[http://bic.cat/bic_calendar_full](http://bic.cat/bic_calendar_full)
