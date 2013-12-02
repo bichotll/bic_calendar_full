@@ -1,0 +1,255 @@
+
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <title>Bic_Calendar example</title>
+
+        <meta name="description" content="BIC Calendar es un simple calendari per marcar esdeveniments. Un plugin de jQuery i Twitter Bootstrap" />
+        <meta name="author" content="bic.cat">
+
+        <!-- Long live the font Ubuntu ! -->
+        <link href='http://fonts.googleapis.com/css?family=Ubuntu:400,500,700' rel='stylesheet' type='text/css'>
+
+        <script src="lib/js/jquery.js"></script>
+
+        <script src="../js/bic_calendar.js"></script>
+        <link href="lib/css/bootstrap.css" rel="stylesheet">
+
+        <script src="lib/js/bootstrap.min.js"></script>
+        <link href="../css/bic_calendar.css" rel="stylesheet">
+
+        <style>
+            body{
+                background: #f0f0f0;
+                padding-top: 20px;
+                background-image: url(lib/img/grid-18px-masked.png);
+                background-position: top;
+                background-repeat: repeat-x;
+                background-attachment: fixed;
+            }
+            body, div, col-md-, p, a, h1, h2, h3, h3, h5, h5{
+                font-family: 'Ubuntu', sans-serif;
+            }
+            footer{
+                padding-top: 100px;
+            }
+            .pintam{
+                box-shadow: rgba(0,0,0,0.3) 0 1px 3px;
+                background: #f7f7f7;
+                border-radius: 5px;
+            }
+            .jumbotron{
+                box-shadow: 0 0 10px #ccc;
+                margin-top: 10px;
+                margin-bottom: 10px;
+            }
+            .atzucac{
+                padding: 20px;
+            }
+            .container{
+                max-width: 900px;
+            }
+        </style>
+    </head>
+    <body>
+        <a href="https://github.com/bichotll/bic_calendar"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+        <div class="container">
+
+            <br><br>
+
+            <div class="row" >
+                <div class="col-md-12" >
+                    <script>
+                        $(document).ready(function() {
+                            document.addEventListener('bicCalendarSelect', function(e) {
+                                $('#from-day').val(e.detail.dateFirst);
+                                $('#to-day').val(e.detail.dateLast);
+
+                                /*
+                                 * obtener calculo dias vacaciones desde el servidor
+                                 * (solo podria obtener los dias que tengo listados
+                                 * activamente en el calendario)
+                                 * por ejemplo, si el usuario elige una fecha de un ano
+                                 * diferente al actual no podria obtener los dias preestablecidos
+                                 */
+                                /*$.ajax({
+                                 type: "POST",
+                                 url: "vacaciones",
+                                 data: {fromDay: e.detail.dateFirst, toDay: e.detail.dateLast}
+                                 }).done(function(data) {
+                                 $('#dias-no-laborales').html(data.n);
+                                 });*/
+                            });
+                        });
+                    </script>
+                    <form>
+                        <label>from</label>
+                        <input id="from-day" disabled >
+                        <label>to</label>
+                        <input id="to-day" disabled >
+                        <input type="submit" >
+                    </form>
+                    <p><b>Holiday days:</b> <span id="dias-no-laborales"></span></p>
+                </div>
+            </div>
+
+
+            <div id="row">
+                <div class="col-md-12" >
+                    <br>
+                    <script>
+                        $(document).ready(function() {
+
+                            var monthNames = ["Gener", "Febrer", "Març", "Abril", "Maig", "Juny", "Juliol", "Agost", "Setembre", "Octubre", "Novembre", "Dicembre"];
+
+                            var dayNames = ["L", "M", "M", "J", "V", "S", "D"];
+
+                            var events = [
+                                {
+                                    date: "28/10/2013",
+                                    title: 'SPORT & WELLNESS',
+                                    link: '',
+                                    color: '',
+                                    content: '<img src="http://gettingcontacts.com/upload/jornadas/sport-wellness_portada.png" ><br>06-11-2013 - 09:00 <br> Tecnocampus Mataró Auditori',
+                                    class: '',
+                                }
+                            ];
+
+                            $('#calendari_lateral1').bic_calendar({
+                                //list of events in array
+                                events: events,
+                                //enable select
+                                enableSelect: true,
+                                //enable multi-select
+                                multiSelect: true,
+                                //set day names
+                                dayNames: dayNames,
+                                //set month names
+                                monthNames: monthNames,
+                                //show dayNames
+                                showDays: true,
+                                //set ajax call
+                                reqAjax: {
+                                    type: 'get',
+                                    url: 'http://bic.cat/bic_calendar/index.php'
+                                }
+                                //set popover options
+                                //popoverOptions: {}
+                                //set tooltip options
+                                //tooltipOptions: {}
+                            });
+                        });
+                    </script>
+                    <div id="calendari_lateral1"></div>
+                </div>
+            </div>
+            
+            <br><br>
+
+            <div class="row" >
+                <div class="col-md-8 pintam" >
+                    <div class="atzucac" >
+                        <h3>Dependencias</h3>
+
+                        <ul>
+                            <li>~jQuery 1.7.2</li>
+                            <li>~Twitter Bootstrap 3.0</li>
+                        </ul>
+
+                        <hr>
+
+                        <h3>Options</h3>
+
+                        <h5></h5>
+
+                        <dl>
+                            <dt>popoverOptions (<a href="http://twitter.github.com/bootstrap/javascript.html#popovers" target="_blank" >popover Twitter Bootstrap</a> object)</dt>
+
+                            <dt>tooltipOptions (<a href="http://twitter.github.com/bootstrap/javascript.html#tooltips" target="_blank" >tooltip Twitter Bootstrap</a> object)</dt>
+
+                            <dt>dayNames (array)</dt>
+                            <dd>default: ["l", "m", "x", "j", "v", "s", "d"]</dd>
+
+                            <dt>monthNames (array)</dt>
+                            <dd>default: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"]</dd>
+
+                            <dt>showDays (boolean)</dt>
+                            <dd>default: true</dd>
+
+                            <dt>reqAjax (json array of event array)</dt>
+                            <dd>
+                                - reqAjax.type (string) {'get', 'post'}<br>
+                                - reqAjax.url (string)
+                            </dd>
+
+                            <dt>events (array of event array)</dt>
+
+                            <br>
+
+                            <dt>Event (array)</dt>
+                            <dd>
+                                <b>date</b> (string):<br>
+                                ex: "17/8/1989"
+                            </dd>
+                            <dd>
+                                <b>title</b> (string):<br>
+                                ex: "Event Barberà"
+                            </dd>
+                            <dd>
+                                <b>link</b> (string):<br>
+                                ex: "http://google.es"
+                            </dd>
+                            <dd>
+                                <b>color</b> (string):<br>
+                                ex: "#333"
+                            </dd>
+                            <dd>
+                                <b>class</b> (string):<br>
+                                ex: "activo congreso"
+                            </dd>
+                            <dd>
+                                <b>content</b> (string):<br>
+                                ex: "Text for the content of popover...description of event...image..."
+                                <br>
+                                <b>*</b> <i>if content is not defined it will be a tooltip</i>
+                            </dd>
+                        </dl>
+
+                        <hr>
+
+                        <h3>Use example</h3>
+
+
+                    </div>
+                </div>
+
+                <div class="col-md-4" >
+                    <h1>BIC Calendar</h1><br>
+                    <p>ca - BIC Calendar es un simple calendari per marcar esdeveniments. Un plugin de jQuery i Twitter Bootstrap.</p>
+
+                    <p>en - BIC Calendar is a simple calendar to mark events, a jQuery plugin and Twitter Bootstrap.</p>
+                </div>
+
+            </div>
+
+            <footer>
+                <p>
+                    <a href="http://bic.cat" >bic.cat</a>
+                </p>
+            </footer>
+        </div>
+        <!-- Piwik --> 
+        <!--script type="text/javascript">
+        var pkBaseURL = (("https:" == document.location.protocol) ? "https://bic.cat/piwik/" : "http://bic.cat/piwik/");
+        document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
+        </script><script type="text/javascript">
+        try {
+        var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 3);
+        piwikTracker.trackPageView();
+        piwikTracker.enableLinkTracking();
+        } catch( err ) {}
+        </script--><noscript><p><img src="http://bic.cat/piwik/piwik.php?idsite=3" style="border:0" alt="" /></p></noscript>
+        <!-- End Piwik Tracking Code -->
+    </body>
+</html>
