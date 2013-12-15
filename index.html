@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -18,6 +17,8 @@
 
         <script src="lib/js/bootstrap.min.js"></script>
         <link href="https://rawgithub.com/bichotll/bic_calendar_full/master/css/bic_calendar.css" rel="stylesheet">
+
+        <script src="https://rawgithub.com/moment/moment/develop/min/moment-with-langs.min.js"></script>
 
         <style>
             body{
@@ -63,8 +64,17 @@
                     <script>
                         $(document).ready(function() {
                             document.addEventListener('bicCalendarSelect', function(e) {
-                                $('#from-day').val(e.detail.dateFirst);
-                                $('#to-day').val(e.detail.dateLast);
+                                moment.lang('es'); // default the language to English
+                                var dateFirst = new moment(e.detail.dateFirst);
+                                var dateLast = new moment(e.detail.dateLast);
+                                
+                                $('#from-day').val(dateFirst.format('LL'));
+                                $('#to-day').val(dateLast.format('LL'));
+
+                                /*
+                                 * more about moment.js
+                                 * http://momentjs.com/docs/#/displaying/
+                                 */
 
                                 /*
                                  * obtener calculo dias vacaciones desde el servidor
