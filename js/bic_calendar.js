@@ -107,29 +107,6 @@ $.fn.bic_calendar = function(options) {
             //show the days of the month n year configured
             showMonths(year);
 
-            //fast edit to add rows
-            var row0 = $('<div class="row" ></div>');
-            row0.append(daysMonthsLayer.find('.col-md-4-month-8'));
-            row0.append(daysMonthsLayer.find('.col-md-4-month-9'));
-            row0.append(daysMonthsLayer.find('.col-md-4-month-10'));
-            var row1 = $('<div class="row" ></div>');
-            row1.append(daysMonthsLayer.find('.col-md-4-month-11'));
-            row1.append(daysMonthsLayer.find('.col-md-4-month-0'));
-            row1.append(daysMonthsLayer.find('.col-md-4-month-1'));
-            var row2 = $('<div class="row" ></div>');
-            row2.append(daysMonthsLayer.find('.col-md-4-month-2'));
-            row2.append(daysMonthsLayer.find('.col-md-4-month-3'));
-            row2.append(daysMonthsLayer.find('.col-md-4-month-4'));
-            var row3 = $('<div class="row" ></div>');
-            row3.append(daysMonthsLayer.find('.col-md-4-month-5'));
-            row3.append(daysMonthsLayer.find('.col-md-4-month-6'));
-            row3.append(daysMonthsLayer.find('.col-md-4-month-7'));
-
-            daysMonthsLayer.append(row0);
-            daysMonthsLayer.append(row1);
-            daysMonthsLayer.append(row2);
-            daysMonthsLayer.append(row3);
-
             //next-previous year controllers
             var nextYearButton = $('<td><a href="#" class="button-year-next"><i class="glyphicon glyphicon-arrow-right" ></i></a></td>');
             //event
@@ -171,6 +148,8 @@ $.fn.bic_calendar = function(options) {
 
             //check and add events
             checkEvents(year);
+            var nextYear = year+1;
+            checkEvents(nextYear);
 
             //if enable select
             checkIfEnableMark();
@@ -183,6 +162,8 @@ $.fn.bic_calendar = function(options) {
             daysMonthsLayer.empty();
             showMonths(year);
             checkEvents(year);
+            var nextYear = year + 1;
+            checkEvents(nextYear);
             markSelectedDays();
         }
 
@@ -222,6 +203,29 @@ $.fn.bic_calendar = function(options) {
             for (i = 0; i != 8; i++) {
                 showMonthDays(i, nextYear);
             }
+
+            //fast edit to add rows
+            var row0 = $('<div class="row" ></div>');
+            row0.append(daysMonthsLayer.find('.col-md-4-month-8'));
+            row0.append(daysMonthsLayer.find('.col-md-4-month-9'));
+            row0.append(daysMonthsLayer.find('.col-md-4-month-10'));
+            var row1 = $('<div class="row" ></div>');
+            row1.append(daysMonthsLayer.find('.col-md-4-month-11'));
+            row1.append(daysMonthsLayer.find('.col-md-4-month-0'));
+            row1.append(daysMonthsLayer.find('.col-md-4-month-1'));
+            var row2 = $('<div class="row" ></div>');
+            row2.append(daysMonthsLayer.find('.col-md-4-month-2'));
+            row2.append(daysMonthsLayer.find('.col-md-4-month-3'));
+            row2.append(daysMonthsLayer.find('.col-md-4-month-4'));
+            var row3 = $('<div class="row" ></div>');
+            row3.append(daysMonthsLayer.find('.col-md-4-month-5'));
+            row3.append(daysMonthsLayer.find('.col-md-4-month-6'));
+            row3.append(daysMonthsLayer.find('.col-md-4-month-7'));
+
+            daysMonthsLayer.append(row0);
+            daysMonthsLayer.append(row1);
+            daysMonthsLayer.append(row2);
+            daysMonthsLayer.append(row3);            
         }
 
         /**
