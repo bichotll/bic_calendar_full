@@ -95,7 +95,7 @@ $.fn.bic_calendar = function(options) {
         function showCalendar() {
 
             //layer with the days of the month (literals)
-            daysMonthsLayer = $('<div id="monthsLayer" class="row"></div>');
+            daysMonthsLayer = $('<div id="monthsLayer"></div>');
 
             //Date obj to calc the day
             var objFecha = new Date();
@@ -106,6 +106,29 @@ $.fn.bic_calendar = function(options) {
 
             //show the days of the month n year configured
             showMonths(year);
+
+            //fast edit to add rows
+            var row0 = $('<div class="row" ></div>');
+            row0.append(daysMonthsLayer.find('.col-md-4-month-8'));
+            row0.append(daysMonthsLayer.find('.col-md-4-month-9'));
+            row0.append(daysMonthsLayer.find('.col-md-4-month-10'));
+            var row1 = $('<div class="row" ></div>');
+            row1.append(daysMonthsLayer.find('.col-md-4-month-11'));
+            row1.append(daysMonthsLayer.find('.col-md-4-month-0'));
+            row1.append(daysMonthsLayer.find('.col-md-4-month-1'));
+            var row2 = $('<div class="row" ></div>');
+            row2.append(daysMonthsLayer.find('.col-md-4-month-2'));
+            row2.append(daysMonthsLayer.find('.col-md-4-month-3'));
+            row2.append(daysMonthsLayer.find('.col-md-4-month-4'));
+            var row3 = $('<div class="row" ></div>');
+            row3.append(daysMonthsLayer.find('.col-md-4-month-5'));
+            row3.append(daysMonthsLayer.find('.col-md-4-month-6'));
+            row3.append(daysMonthsLayer.find('.col-md-4-month-7'));
+
+            daysMonthsLayer.append(row0);
+            daysMonthsLayer.append(row1);
+            daysMonthsLayer.append(row2);
+            daysMonthsLayer.append(row3);
 
             //next-previous year controllers
             var nextYearButton = $('<td><a href="#" class="button-year-next"><i class="glyphicon glyphicon-arrow-right" ></i></a></td>');
@@ -191,10 +214,13 @@ $.fn.bic_calendar = function(options) {
          * print months
          */
         function showMonths(year) {
-            for (i = 0; i != 12; i++) {
-                if (i % 3 == false)
-                    daysMonthsLayer.append($('</div><div class="row">'));
+            textYearCurrentLayer.text(year + ' - ' + (year+1));
+            for (i = 8; i != 12; i++) {
                 showMonthDays(i, year);
+            }
+            var nextYear = year + 1;
+            for (i = 0; i != 8; i++) {
+                showMonthDays(i, nextYear);
             }
         }
 
@@ -206,9 +232,8 @@ $.fn.bic_calendar = function(options) {
             //layoutMonth
             layoutMonth = $('<table class="table"></table>');
 
-            //print year n month in layers
+            //print month in layers
             textMonthCurrentLayer.text(monthNames[month]);
-            textYearCurrentLayer.text(year);
 
             //show days of the month
             var daysCounter = 1;
@@ -284,11 +309,11 @@ $.fn.bic_calendar = function(options) {
 
             layoutMonth.append(daysMonthLayerString);
 
-            layoutMonth = $('<div class="monthDisplayed" ></div>').append(layoutMonth);
+            layoutMonth = $('<div class="monthDisplayed monthDisplayed-' + month + '" ></div>').append(layoutMonth);
 
-            layoutMonth.prepend($('<div class="month" >' + monthNames[month] + '</div>'));
+            layoutMonth.prepend($('<div class="month month-' + month + '" >' + monthNames[month] + '</div>'));
 
-            layoutMonth = $('<div class="col-md-4" ></div>').append(layoutMonth);
+            layoutMonth = $('<div class="col-md-4 col-md-4-month-' + month + '" ></div>').append(layoutMonth);
 
 
             daysMonthsLayer.append(layoutMonth);
