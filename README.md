@@ -35,7 +35,7 @@ Options
 
 - events (array of event array)
     - ex:
-```
+```js
     var events = [
         {
             date: "28/10/2013",
@@ -52,7 +52,7 @@ Options
 Use example for the calendar
 ----------------------------
 
-```
+```js
 $(document).ready(function() {
 
     var monthNames = ["Gener", "Febrer", "Març", "Abril", "Maig", "Juny", "Juliol", "Agost", "Setembre", "Octubre", "Novembre", "Dicembre"];
@@ -99,7 +99,7 @@ $(document).ready(function() {
 
 Use example for the calendar events
 -----------------------------------
-```
+```js
 $(document).ready(function() {
     document.addEventListener('bicCalendarSelect', function(e) {
         alert('Hi dude! You selected from ' + e.detail.dateFirst + 'to' + e.detail.dateLast + '. Do whatever you want with these dates.');
@@ -124,6 +124,17 @@ More info
 ---------
 This is just an improved fork of [http://bic.cat/bic_calendar](http://bic.cat/bic_calendar). 
 For more info you could check it and its branches.
+
+
+About IE8
+---------
+[https://github.com/bichotll/bic_calendar_full/issues/1](https://github.com/bichotll/bic_calendar_full/issues/1)
+
+
+Other Bic Calendar Full branches
+---------
+Fully working example for a school calendar. Not so good code, but it does its job.
+[https://github.com/bichotll/bic_calendar_full/tree/school](https://github.com/bichotll/bic_calendar_full/tree/school)
 
 
 Showcase
