@@ -68,7 +68,7 @@
                                 moment.lang('es'); // default the language to English
                                 var dateFirst = new moment(e.detail.dateFirst);
                                 var dateLast = new moment(e.detail.dateLast);
-                                
+
                                 $('#from-day').val(dateFirst.format('LL'));
                                 $('#to-day').val(dateLast.format('LL'));
 
@@ -114,14 +114,33 @@
 
                             var monthNames = ["Gener", "Febrer", "Març", "Abril", "Maig", "Juny", "Juliol", "Agost", "Setembre", "Octubre", "Novembre", "Dicembre"];
 
-                            var dayNames = ["L", "M", "M", "J", "V", "S", "D"];
+                            var dayNames = ["S", "M", "T", "W", "T", "F", "S"];
 
                             var events = [
                                 {
-                                    date: "28/10/2013",
+                                    date: "2017/02/12",
+                                    date_to: "2017/02/17",
                                     title: 'SPORT & WELLNESS',
                                     link: '',
-                                    color: '',
+                                    color: '#ff0000',
+                                    content: '<img src="http://gettingcontacts.com/upload/jornadas/sport-wellness_portada.png" ><br>06-11-2013 - 09:00 <br> Tecnocampus Mataró Auditori',
+                                    class: '',
+                                },
+                                {
+                                    date: "2017/02/23",
+                                    date_to: "2017/03/23",
+                                    title: 'RENT',
+                                    link: '',
+                                    color: '#ffff00',
+                                    content: '<img src="http://gettingcontacts.com/upload/jornadas/sport-wellness_portada.png" ><br>06-11-2013 - 09:00 <br> Tecnocampus Mataró Auditori',
+                                    class: '',
+                                },
+                                {
+                                    date: "2017/01/13",
+                                    date_to: "2017/01/16",
+                                    title: 'RENT',
+                                    link: '',
+                                    color: '#0000ff',
                                     content: '<img src="http://gettingcontacts.com/upload/jornadas/sport-wellness_portada.png" ><br>06-11-2013 - 09:00 <br> Tecnocampus Mataró Auditori',
                                     class: '',
                                 }
@@ -137,7 +156,7 @@
                                 //set day names
                                 dayNames: dayNames,
                                 //set month names
-                                monthNames: monthNames,
+                          //      monthNames: monthNames,
                                 //show dayNames
                                 showDays: true,
                                 //set ajax call
@@ -250,7 +269,7 @@
                 </p>
             </footer>
         </div>
-        <!-- Piwik --> 
+        <!-- Piwik -->
         <!--script type="text/javascript">
         var pkBaseURL = (("https:" == document.location.protocol) ? "https://bic.cat/piwik/" : "http://bic.cat/piwik/");
         document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
