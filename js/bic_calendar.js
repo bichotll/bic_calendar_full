@@ -252,8 +252,7 @@ $.fn.bic_calendar = function(options) {
               }
 
             }
-daysMonthLayerString += dayCode
-            console.log(daysMonthLayerString);
+            daysMonthLayerString += dayCode
 /*
             //check all the other days until end of the month
             var currentWeekDay = 1;
@@ -447,9 +446,6 @@ daysMonthLayerString += dayCode
                       oldSelectedDate.setDate(oldSelectedDate.getDate() + 1);
 
                   }
-
-
-
                 }
             }
 
@@ -607,7 +603,6 @@ daysMonthLayerString += dayCode
         }
 
         function addNewEvent(date_from, date_to) {
-          $('#bic_calendar #new_event_pane').text("From: " + date_from + ", to: " + date_to);
           $('#bic_calendar #new_event_pane').slideDown();
         }
 
