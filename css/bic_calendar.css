@@ -98,7 +98,7 @@
 }
 .bic_calendar .monthDisplayed {
     margin: 0px;
-    margin-top: 5px;
+    margin-top: 1px;
     border: 1px #ddd solid;
     border-radius: 10px;
 }

@@ -94,10 +94,10 @@ $.fn.bic_calendar = function(options) {
          */
         function showCalendar() {
 
-            var newEventPane = $('<div id="new_event_pane" class="row" style="display:none;background-color:yellow"><a href="test.html">ffds</a></div>');
+            var newEventPane = $('<div id="new_event_pane" class="row" style="display:none;background-color:yellow"></div>');
 
             //layer with the days of the month (literals)
-            daysMonthsLayer = $('<div id="monthsLayer" class="row"></div>');
+            daysMonthsLayer = $('<div id="monthsLayer" class="row" style="height:300px;overflow-y:auto;"></div>');
 
             //Date obj to calc the day
             var objFecha = new Date();
@@ -171,19 +171,22 @@ $.fn.bic_calendar = function(options) {
          */
         function listListeralsWeek() {
             if (showDays != false) {
-                var capaDiasSemana = $('<tr class="days-month" >');
+                var capaDiasSemana = $('<tr class="days-month">');
                 var codigoInsertar = '';
-                $(dayNames).each(function(indice, valor) {
-                    codigoInsertar += '<td';
-                    if (indice == 0) {
-                        codigoInsertar += ' class="primero"';
-                    }
-                    if (indice == 6) {
-                        codigoInsertar += ' class="domingo ultimo"';
-                    }
-                    codigoInsertar += ">" + valor + '</td>';
-                });
+                for(var i=0; i<38; i++) {
+                  codigoInsertar += '<td';
+                  if (i == 0) {
+                      codigoInsertar += ' class="primero"';
+                  }
+                  if (i == 6) {
+                      codigoInsertar += ' class="domingo ultimo"';
+                  }
+                  codigoInsertar += ">" + dayNames[i%7] + '</td>';
+                }
+
                 codigoInsertar += '</tr>';
+
+                console.log(codigoInsertar);
                 capaDiasSemana.append(codigoInsertar);
 
                 layoutMonth.append(capaDiasSemana);
@@ -194,9 +197,8 @@ $.fn.bic_calendar = function(options) {
          * print months
          */
         function showMonths(year) {
-            for (i = 0; i < 6; i++) {
-                if (i % 3 == false)
-                    daysMonthsLayer.append($('</div><div class="row">'));
+            for (i = 0; i < 12; i++) {
+                daysMonthsLayer.append($('</div><div class="row">'));
                 showMonthDays(i, year);
             }
         }
@@ -226,30 +228,33 @@ $.fn.bic_calendar = function(options) {
 
             var daysMonthLayerString = "";
 
-            //print the first row of the week
-            for (var i = 0; i < 7; i++) {
-                if (i < firstDay) {
-                    var dayCode = "";
-                    if (i == 0)
-                        dayCode += "<tr>";
-                    //add weekDay
-                    dayCode += '<td class="invalid-day week-day-'+ i +'"';
-                    dayCode += '"></td>';
-                } else {
-                    var dayCode = "";
-                    if (i == 0)
-                        dayCode += '<tr>';
-                    dayCode += '<td id="' + calendarId + '_' + year + "_" + nMonth + "_" + daysCounter + '" data-date="' + year + "/" + nMonth + "/" + daysCounter + '" ';
-                    //add weekDay
-                    dayCode += ' class="week-day-'+ i +'"';
-                    dayCode += '><div><a>' + daysCounter + '</a></div></span>';
-                    if (i == 6)
-                        dayCode += '</tr>';
-                    daysCounter++;
-                }
-                daysMonthLayerString += dayCode
-            }
+            //print the days in the month
+            for (var i = 0; i < 38; i++) {
+              console.log(i);
+              if(i === 0) {
+                var dayCode = "<tr>";
 
+              }
+              if (i < firstDay || i-firstDay >= lastDayMonth) {
+
+                  //add weekDay
+                  dayCode += '<td class="invalid-day week-day-'+ i +'"';
+                  dayCode += '"><div>&nbsp</div></td>';
+              } else {
+                  dayCode += '<td id="' + calendarId + '_' + year + "_" + nMonth + "_" + daysCounter + '" data-date="' + year + "/" + nMonth + "/" + daysCounter + '" ';
+                  //add weekDay
+                  dayCode += ' class="week-day-'+ i%7 +'"';
+                  dayCode += '><div><a>' + daysCounter + '</a></div></td>';
+                  daysCounter++;
+              }
+              if (i === 37) {
+                dayCode += '</tr>';
+              }
+
+            }
+daysMonthLayerString += dayCode
+            console.log(daysMonthLayerString);
+/*
             //check all the other days until end of the month
             var currentWeekDay = 1;
             while (daysCounter <= lastDayMonth) {
@@ -282,16 +287,16 @@ $.fn.bic_calendar = function(options) {
                     daysMonthLayerString += dayCode
                 }
             }
-
+*/
             listListeralsWeek();
 
             layoutMonth.append(daysMonthLayerString);
 
-            layoutMonth = $('<div class="monthDisplayed" ></div>').append(layoutMonth);
+            layoutMonth = $('<div class="monthDisplayed"></div>').append(layoutMonth);
 
-            layoutMonth.prepend($('<div class="month" >' + monthNames[month] + '</div>'));
+            layoutMonth.prepend($('<div class="month">' + monthNames[month] + '</div>'));
 
-            layoutMonth = $('<div class="col-md-4" style="padding:0px"></div>').append(layoutMonth);
+            layoutMonth = $('<div class="col-md-12" style="padding:0px"></div>').append(layoutMonth);
 
 
             daysMonthsLayer.append(layoutMonth);
@@ -548,6 +553,8 @@ $.fn.bic_calendar = function(options) {
 
                 while ((!backwards && currDate <= lastSelectedDate) ||
                       (backwards && currDate >= lastSelectedDate)) {
+                  addClass = "selection";
+
                   if($('#bic_calendar_' + currDate.getFullYear() + '_' + (parseInt(currDate.getMonth()) + 1) + '_' + currDate.getDate() + ' div').hasClass('event')) {
                     if(!backwards) {
                       currDate.setDate(currDate.getDate() - 1);
@@ -560,19 +567,23 @@ $.fn.bic_calendar = function(options) {
 
                   if(currDate.toString() == firstSelectedDate.toString()) {
                     if(!backwards) {
-                      addClass = 'selection first-selection';
+                      addClass += ' first-selection';
                     } else {
-                      addClass = 'selection last-selection';
+                      addClass += ' last-selection';
                     }
 
-                  } else if(currDate.toString() == lastSelectedDate.toString()) {
+                  }
+
+                  if(currDate.toString() == lastSelectedDate.toString()) {
                     if(!backwards) {
-                      addClass = 'selection last-selection';
+                      addClass += ' last-selection';
                     } else {
-                      addClass = 'selection first-selection';
+                      addClass += ' first-selection';
                     }
-                  } else {
-                    addClass = 'selection middle-selection';
+                  }
+
+                  if(currDate.toString() != firstSelectedDate.toString() && currDate.toString() != lastSelectedDate.toString()) {
+                    addClass += ' middle-selection';
                     //set middle-selection
                   }
                   $('#bic_calendar_' + currDate.getFullYear() + '_' + (parseInt(currDate.getMonth()) + 1) + '_' + currDate.getDate() + ' div').addClass(addClass);
